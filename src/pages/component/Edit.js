@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 
 function Edit(props) {
   const { information, setInformation } = props;
-  const [input, setInput] = useState({
+  const [inputContent, setInputContent] = useState({
     id: '',
     thing: '',
     time: '',
@@ -12,7 +12,11 @@ function Edit(props) {
   });
 
   function inputChange(e) {
-    setInput({ ...input, id: nanoid(), [e.target.name]: e.target.value });
+    setInputContent({
+      ...inputContent,
+      id: nanoid(),
+      [e.target.name]: e.target.value,
+    });
   }
   // console.log(information);
   function addList(data) {
@@ -20,26 +24,13 @@ function Edit(props) {
     list.push(data);
     localStorage.setItem('list', JSON.stringify(list));
     setInformation(list);
-    setInput({ ...input, id: '', thing: '', time: '' });
+    setInputContent({ ...inputContent, id: '', thing: '', time: '' });
   }
-  //資料庫
-  // async function addList(e) {
-  //   e.preventDefault();
-  //   try {
-  //     let result = await axios.post(
-  //       'http://localhost:3002/api/server',
-  //       information
-  //     );
-  //     console.log(result);
-  //   } catch (e) {
-  //     console.error('error', e.result.data.msg);
-  //   }
-  // }
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        addList(input);
+        addList(inputContent);
       }}
     >
       <div className="my-5">
@@ -49,7 +40,7 @@ function Edit(props) {
             type="text"
             placeholder="新增事項"
             name="thing"
-            value={input.thing}
+            value={inputContent.thing}
             onChange={inputChange}
             required
           />
@@ -58,21 +49,20 @@ function Edit(props) {
           <input
             type="date"
             name="time"
-            value={input.time}
+            value={inputContent.time}
             onChange={inputChange}
             required
           />
         </div>
         <div className="d-flex justify-content-center mt-2">
-          <button
-            className="btn btn-secondary add"
-            // onClick={(e) => {
-            //   e.preventDefault();
-            //   addList(information);
-            // }}
-          >
-            新增
-          </button>
+          <button className="btn btn-secondary add">新增</button>
+          {/* {inputContent.thing === '' || inputContent.time === '' ? (
+            <button className="btn btn-secondary add" disabled="disabled">
+              新增
+            </button>
+          ) : (
+            <button className="btn btn-secondary add">新增</button>
+          )} */}
         </div>
       </div>
     </form>

@@ -20,5 +20,5 @@ input.invalid{
 
 .btn-secondary:active:focus, .btn-check:focus + .btn, .btn:focus, .btn-secondary:focus{
     outline: 0;
-    box-shadow: none;
+    box-shadow: none!important;
 }

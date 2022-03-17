@@ -6,15 +6,12 @@ import Time from './Time';
 function List(props) {
   const { information, setInformation } = props;
   const [key, setKey] = useState('待完成');
-  // const [complete,]
-  let array = JSON.parse(localStorage.getItem('list')).filter(
-    (v) => v.valid === 1
-  );
-  let completeArray = JSON.parse(localStorage.getItem('list')).filter(
-    (v) => v.valid === 0
-  );
+
+  let array = information.filter((v) => v.valid === 1);
+  let completeArray = information.filter((v) => v.valid === 0);
 
   useEffect(() => {}, [information]);
+
   console.log('infoList:', information);
   //刪除
   function deleteItem(id) {
@@ -49,17 +46,19 @@ function List(props) {
       if (result.isConfirmed) {
         //改valid
         const newItem = information.find((value) => value.id === id);
-        // .replace(1, 0);
         let newItem2 = newItem;
         newItem2.valid = 0;
-        newItem2.finishedtime = Date.now();
+        //加時間
+        newItem2.finishedtime = new Date().toLocaleString().substring(0, 10);
         console.log('123', newItem);
+
         //刪除localstorage舊資料
-        const list = JSON.parse(localStorage.getItem('list')) || [];
+        const list = JSON.parse(localStorage.getItem('list'));
         list.splice(
           list.findIndex((v) => v.id === id),
           1
         );
+
         list.push(newItem);
         setInformation(list);
         localStorage.setItem('list', JSON.stringify(list));
@@ -103,9 +102,7 @@ function List(props) {
                 className="d-flex justify-content-between mb-1 text-secondary"
               >
                 <span>{v.thing}</span>
-                <span>
-                  <Time />
-                </span>
+                <span>{v.finishedtime}</span>
               </div>
             );
           })}

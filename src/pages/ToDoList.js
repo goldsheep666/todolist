@@ -5,7 +5,7 @@ import List from './component/List';
 import './index.css';
 
 function ToDoList() {
-  const [information, setInformation] = useState();
+  const [information, setInformation] = useState([]);
   useEffect(() => {
     const list = JSON.parse(localStorage.getItem('list')) || [];
     setInformation(list);
