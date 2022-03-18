@@ -12,7 +12,7 @@ function List(props) {
 
   useEffect(() => {}, [information]);
 
-  console.log('infoList:', information);
+  // console.log('infoList:', information);
   //刪除
   function deleteItem(id) {
     Swal.fire({
@@ -50,7 +50,8 @@ function List(props) {
         newItem2.valid = 0;
         //加時間
         newItem2.finishedtime = new Date().toLocaleString().substring(0, 10);
-        console.log('123', newItem);
+        //toLocaleTimeString()時間
+        // console.log('123', newItem);
 
         //刪除localstorage舊資料
         const list = JSON.parse(localStorage.getItem('list'));
@@ -62,7 +63,7 @@ function List(props) {
         list.push(newItem);
         setInformation(list);
         localStorage.setItem('list', JSON.stringify(list));
-        console.log('list', list);
+        // console.log('list', list);
       }
     });
   }
